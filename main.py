@@ -18,7 +18,7 @@ MAX_W, MAX_H = 428, 926
 BUTTON_SIZE = 8
 
 home_dir = os.path.expanduser('~')
-home_dir = os.path.curdir # -------------------------> Debugging
+# home_dir = os.path.curdir # -------------------------> Debugging
 download_dir = os.path.join(home_dir, 'Downloads')
 
 sg.theme('DarkBlue17')
