@@ -9,7 +9,6 @@ from barcode import Code128
 from barcode.writer import ImageWriter
 import PySimpleGUI as sg
 import os
-import time
 
 # For Program logic
 # Template Dimension
