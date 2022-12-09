@@ -1,2 +1,4 @@
 Pillow==9.3.0
 python-barcode==0.14.0
+PySimpleGUI==4.60.4
+auto-py-to-exe==2.26.0

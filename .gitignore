@@ -3,5 +3,6 @@ archive/
 venv/
 batch-generation/
 batch-generated/
+output/
 
 *.csv
