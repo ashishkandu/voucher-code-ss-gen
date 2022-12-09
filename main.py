@@ -20,7 +20,7 @@ BUTTON_SIZE = 8
 home_dir = os.path.expanduser('~')
 download_dir = os.path.join(home_dir, 'Downloads')
 
-icon_path = 'barcode_pencil.ico'
+icon_path = 'resources/barcode_pencil.ico'
 
 sg.theme('DarkBlue17')
 
@@ -54,7 +54,7 @@ def is_valid_path(filepath):
 
 def write_description(desc, draw_obj):
     para = textwrap.wrap(desc, width=description_break)
-    font = ImageFont.truetype('Roboto-Regular.ttf', description_font_size)
+    font = ImageFont.truetype('resources/Roboto-Regular.ttf', description_font_size)
 
     current_h, pad = 100, 10
     for line in para:
@@ -64,7 +64,7 @@ def write_description(desc, draw_obj):
 
 
 def write_title(curr_title, draw_obj):
-    font_title = ImageFont.truetype('Roboto-Bold.ttf', title_font_size)
+    font_title = ImageFont.truetype('resources/Roboto-Bold.ttf', title_font_size)
     title_h = 20
 
     w, h = draw_obj.textsize(curr_title, font=font_title)
@@ -111,7 +111,7 @@ def generate_output(csv_file, destination):
             code = code.strip()
             description = description.strip()
 
-            im = Image.open('Template.png')
+            im = Image.open('resources/Template.png')
             draw = ImageDraw.Draw(im)
 
             write_title(title, draw_obj=draw)
