@@ -20,7 +20,11 @@ BUTTON_SIZE = 8
 home_dir = os.path.expanduser('~')
 download_dir = os.path.join(home_dir, 'Downloads')
 
+icon_path = 'barcode_pencil.ico'
+
 sg.theme('DarkBlue17')
+
+sg.set_global_icon(icon_path)
 
 SETTINGS_PATH = os.path.curdir
 settings = sg.UserSettings(path=SETTINGS_PATH , filename='config.ini', use_config_file=True, convert_bools_and_none=True)
@@ -32,11 +36,11 @@ save_folder_name = str(settings["VOUCHER"]["save_folder_name"])
 
 layout = [
             [sg.StatusBar("Voucher Barcode Generator", justification='c', font=(None, 22), pad=(0, 10) , key='-STATUSBAR-')],
-            [sg.Text("csv file:", size=(12, 1), justification='r', tooltip='The csv file should have 3 values: Merchant Name, Description, code'), sg.Input(key="-CSVFILE-", expand_x=True), sg.FileBrowse(file_types=(('csv files', '*.csv'), ), size=BUTTON_SIZE, initial_folder=home_dir)],
+            [sg.Text("csv file:", size=(12, 1), justification='r', tooltip='The csv file should have 3 values: Merchant name, Description, Voucher code'), sg.Input(key="-CSVFILE-", expand_x=True), sg.FileBrowse(file_types=(('csv files', '*.csv'), ), size=BUTTON_SIZE, initial_folder=home_dir)],
             [sg.Text("Destination:", size=(12, 1), justification='r', tooltip="The location where generated files are going to be saved"), sg.Input(key='-DESTINATIONDIR-', expand_x=True), sg.FolderBrowse(size=BUTTON_SIZE, initial_folder=home_dir)],
             [sg.HorizontalSeparator(pad=(0, 10))],
             [sg.Push(), sg.ProgressBar(max_value = 100, orientation='h', size=(55, 15), border_width=2, pad=((0, 0), (10, 20)), bar_color=('Green', None) , key='-PROGBAR-'), sg.Push()],
-            [sg.Push(), sg.Ok(button_text="Generate"), sg.Button("Settings"), sg.Exit()],
+            [sg.Button("Settings", size=BUTTON_SIZE), sg.Push(), sg.Ok(button_text="Generate", size=BUTTON_SIZE), sg.Exit(button_color='tomato', size=BUTTON_SIZE)],
 ]
 
 window = sg.Window('Voucher Barcode Generator', layout, font=(None, 10))
@@ -180,7 +184,7 @@ while True:
     if not values['-CSVFILE-'] and event == 'Generate':
         sg.popup_ok("Please select a csv file", title="Error")
     elif not values['-DESTINATIONDIR-'] and event == 'Generate':
-        if sg.popup_yes_no("Do you want to save the result in Downloads folder?") == 'Yes':
+        if sg.popup_yes_no("Do you want to save the result in Downloads folder?", title="Confirmation") == 'Yes':
             window['-DESTINATIONDIR-'].update(value=download_dir)
     elif event == 'Generate':
         if is_valid_path(values['-CSVFILE-']) and is_valid_path(values['-DESTINATIONDIR-']):
