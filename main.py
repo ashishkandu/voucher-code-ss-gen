@@ -18,7 +18,6 @@ MAX_W, MAX_H = 428, 926
 BUTTON_SIZE = 8
 
 home_dir = os.path.expanduser('~')
-# home_dir = os.path.curdir # -------------------------> Debugging
 download_dir = os.path.join(home_dir, 'Downloads')
 
 sg.theme('DarkBlue17')
@@ -123,7 +122,7 @@ def generate_output(csv_file, destination):
                 os.makedirs(save_path)
             save_filename = os.path.join(save_path, filename)
             im.save(save_filename)
-        sg.popup_quick_message('Completed', relative_location=(0, 140))
+        sg.popup_quick_message('Completed', relative_location=(0, 120))
 
 
 def settings_window(settings):
