@@ -36,8 +36,8 @@ save_folder_name = str(settings["VOUCHER"]["save_folder_name"])
 
 layout = [
             [sg.StatusBar("Voucher Barcode Generator", justification='c', font=(None, 22), pad=(0, 10) , key='-STATUSBAR-')],
-            [sg.Text("csv file:", size=(12, 1), justification='r', tooltip='The csv file should have 3 values: Merchant name, Description, Voucher code'), sg.Input(key="-CSVFILE-", expand_x=True), sg.FileBrowse(file_types=(('csv files', '*.csv'), ), size=BUTTON_SIZE, initial_folder=home_dir)],
-            [sg.Text("Destination:", size=(12, 1), justification='r', tooltip="The location where generated files are going to be saved"), sg.Input(key='-DESTINATIONDIR-', expand_x=True), sg.FolderBrowse(size=BUTTON_SIZE, initial_folder=home_dir)],
+            [sg.Text("csv file:", size=(12, 1), justification='r', tooltip='The csv file should have 3 values: Merchant name, Description, Voucher code'), sg.Input(key="-CSVFILE-", expand_x=True, default_text='C:/Users/User/data.csv'), sg.FileBrowse(file_types=(('csv files', '*.csv'), ), size=BUTTON_SIZE, initial_folder=home_dir)],
+            [sg.Text("Destination:", size=(12, 1), justification='r', tooltip="The location where generated files are going to be saved"), sg.Input(key='-DESTINATIONDIR-', expand_x=True, default_text='C:/Users/User/Downloads'), sg.FolderBrowse(size=BUTTON_SIZE, initial_folder=home_dir)],
             [sg.HorizontalSeparator(pad=(0, 10))],
             [sg.Push(), sg.ProgressBar(max_value = 100, orientation='h', size=(55, 15), border_width=2, pad=((0, 0), (10, 20)), bar_color=('Green', None) , key='-PROGBAR-'), sg.Push()],
             [sg.Button("Settings", size=BUTTON_SIZE), sg.Push(), sg.Ok(button_text="Generate", size=BUTTON_SIZE), sg.Exit(button_color='tomato', size=BUTTON_SIZE)],
@@ -54,7 +54,7 @@ def is_valid_path(filepath):
 
 def write_description(desc, draw_obj):
     para = textwrap.wrap(desc, width=description_break)
-    font = ImageFont.truetype('resources/Roboto-Regular.ttf', description_font_size)
+    font = ImageFont.truetype("fonts/Roboto-Regular.ttf", size=description_font_size)
 
     current_h, pad = 100, 10
     for line in para:
@@ -64,7 +64,7 @@ def write_description(desc, draw_obj):
 
 
 def write_title(curr_title, draw_obj):
-    font_title = ImageFont.truetype('resources/Roboto-Bold.ttf', title_font_size)
+    font_title = ImageFont.truetype("fonts/Roboto-Bold.ttf", size=title_font_size)
     title_h = 20
 
     w, h = draw_obj.textsize(curr_title, font=font_title)
@@ -73,8 +73,8 @@ def write_title(curr_title, draw_obj):
 
 def appned_barcode(base_img, code_str):
     raw_fp = BytesIO()
-
-    generated_barcode = Code128(code_str, writer=ImageWriter())
+    image_writer = ImageWriter()
+    generated_barcode = Code128(code_str, writer=image_writer)
     generated_barcode.write(raw_fp)
 
     barcode_ = Image.open(raw_fp)
